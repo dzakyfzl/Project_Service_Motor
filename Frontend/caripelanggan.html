@@ -1,0 +1,46 @@
+<html>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+    crossorigin="anonymous">
+    <head>
+        <title>Frontend Tubes</title>
+        <link rel="stylesheet" href="caripelanggan/pelangganstyle.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="container-fluid">
+              <a
+              class="navbar-brand"
+              style="font-family: Playfair Display"
+              href="index.html"
+              >Paci<span class="spn">Motors</span></a
+              >
+            </div>
+            </nav>
+          </nav>
+
+
+        <div class="kotak-pencarian">
+            <! -- Masih belum -->
+            <a href="caripelanggan.html" id="back-button">Back</a>
+            <input type="text" id="input" placeholder="Nama Pelanggan">
+            <button id="search" onclick="pelanggancaridarinama()">Search</button>
+            <label id="pemisah">or</label>
+            <a href="caridarisparepart.html" id="tombol-cari-sparepart">Cari Dari Sparepart</a>
+        </div>
+        <div>
+            <table class="table table-striped" id="tables-pelanggan">
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Plat Nomor</th>
+                        <th>Jenis Motor</th>
+                        <th>Pilih</th>
+                    </tr>
+                    </thead>
+            </table>
+        </div>
+    </body>
+    <script src="caripelanggan/pelanggan.js"></script>
+</html>

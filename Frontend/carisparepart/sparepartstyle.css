@@ -1,0 +1,42 @@
+#input{
+    border-radius: 10px;
+}
+
+#search{
+    border-radius: 10px;
+    background: #10a344;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.kotak-pencarian{
+    padding: 10px;
+}
+
+.navbar {
+    background-color: #242222;
+}
+
+.spn {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(4, 75, 10);
+    cursor: pointer;
+}
+  
+.spn:hover {
+    color: rgb(4, 75, 10);
+}
+
+.navbar-brand {
+  font-size: 2rem;
+  font-style: italic;
+  font-weight: bold;
+  color: whitesmoke;
+  cursor: pointer;
+}
+  
+.navbar-brand:hover {
+  color: whitesmoke;
+}

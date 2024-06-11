@@ -1,0 +1,12 @@
+Bagian menu yg harus dibuat
+1. Daftar Pelanggan
+2. Daftar Sparepart
+3. Daftar Servis
+4. Order Sparepart
+
+
+Yang perlu dikerjakan :
+1. Menu/home
+2. Formulir pendaftaran/pengeditan pelanggan : Input => (Nama),(Jenis Motor),(Nomor plat)
+3. Formulir pendaftaran servis : Input => (Tanggal masuk)
+5. Formulir pendafaran/pengeditan sparepart : Input => (Nama sparepart),(Jenis motor),(Harga)
