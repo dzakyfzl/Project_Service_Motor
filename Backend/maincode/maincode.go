@@ -48,7 +48,7 @@ func KonversiSQLKeTanggal(x string) Tanggal {
 	var hasil Tanggal
 	Tahun, errors := strconv.Atoi(x[:4])
 	if errors != nil {
-		panic(errors)
+		log.Print("[KONVERSI TANGGAL SQL-STANDARD] error : ", errors)
 	}
 	hasil.Tahun = Tahun
 	if x[4:8] == "-01-" {
@@ -78,7 +78,7 @@ func KonversiSQLKeTanggal(x string) Tanggal {
 	}
 	Tanggal, errors2 := strconv.Atoi(x[8:])
 	if errors2 != nil {
-		panic(errors2)
+		log.Print("[KONVERSI TANGGAL SQL-STANDARD] error : ", errors2)
 	}
 	hasil.Tanggal = Tanggal
 	return hasil
@@ -123,7 +123,7 @@ func KonversiId(id, x string) string {
 	bil, err := strconv.Atoi(angka)
 	bil += 1
 	if err != nil {
-		panic(err)
+		log.Print(err)
 	}
 	temp := strconv.Itoa(bil)
 	if len(temp) == 2 {
@@ -150,14 +150,12 @@ func TambahPelanggan(A Pelanggan) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[TAMBAH PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print(errors)
-		panic(errors)
 	}
 	defer log.Print("[TAMBAH PELANGGAN] Success")
 	defer rows.Close()
@@ -169,14 +167,12 @@ func TambahSparepart(A Sparepart) { //HANYA INPUT NAMA, HARGA, JENIS MOTOR
 	db, err := Connect()
 	if err != nil {
 		log.Print("[TAMBAH SPAREPART] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows1, errors1 := db.QueryContext(ctx, input1)
 	if errors1 != nil {
 		log.Print("[TAMBAH SPAREPART] Error : ", errors1)
-		panic(errors1)
 	}
 	if !rows1.Next() {
 		id = "P000"
@@ -187,7 +183,6 @@ func TambahSparepart(A Sparepart) { //HANYA INPUT NAMA, HARGA, JENIS MOTOR
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[TAMBAH SPAREPART] Error : ", errors2)
-		panic(errors2)
 	}
 	defer log.Print("[TAMBAH SPAREPART] Success ")
 	defer rows1.Close()
@@ -201,14 +196,12 @@ func DaftarServis(idPelanggan int, date Tanggal) { //MASUKKAN ID
 	db, err := Connect()
 	if err != nil {
 		log.Print("[DAFTAR SERVIS] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows1, errors1 := db.QueryContext(ctx, input1)
 	if errors1 != nil {
 		log.Print("[DAFTAR SERVIS] Error : ", errors1)
-		panic(errors1)
 	}
 	if !rows1.Next() {
 		id = "S000"
@@ -219,7 +212,6 @@ func DaftarServis(idPelanggan int, date Tanggal) { //MASUKKAN ID
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[DAFTAR SERVIS] Error : ", errors2)
-		panic(errors2)
 	}
 	defer log.Print("[DAFTAR SERVIS] Success ")
 	defer rows1.Close()
@@ -232,20 +224,17 @@ func PesanSparepart(idServis, idSparepart string) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[PESAN PESANAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[PESAN PESANAN] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	input2 := "UPDATE sparepart SET Jumlah_terjual = Jumlah_terjual+1 WHERE Id_sparepart = '" + idSparepart + "';"
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[PESAN PESANAN] Error : ", errors2)
-		panic(errors2)
 	}
 	defer log.Print("[TAMBAH PESANAN] Success ")
 	defer rows2.Close()
@@ -264,13 +253,11 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 	db, err := Connect()
 	if err != nil {
 		log.Print("[HITUNG TOTAL SERVIS] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[HITUNG TOTAL SERVIS] Error : ", errors)
-		panic(errors)
 	}
 	for rows.Next() {
 		rows.Scan(&idSparepartTemp[i], &idServisTemp[i])
@@ -296,7 +283,6 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[HITUNG TOTAL SERVIS] Error : ", errors2)
-		panic(errors2)
 	}
 	for rows2.Next() {
 		rows2.Scan(&t.Total_Harga)
@@ -306,7 +292,6 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 	rows3, errors3 := db.QueryContext(ctx, input3)
 	if errors3 != nil {
 		log.Print("[HITUNG TOTAL SERVIS] Error : ", errors3)
-		panic(errors3)
 	}
 	defer log.Print("[HITUNG TOTAL SERVIS] Success")
 	defer rows3.Close()
@@ -321,14 +306,12 @@ func CariPelanggan(nPelanggan string, y *List_pelanggan, n *int) { //MASUKKAN NA
 	db, err := Connect()
 	if err != nil {
 		log.Print("[CARI PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[CARI PELANGGAN] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	for rows.Next() {
@@ -356,13 +339,11 @@ func CariPelangganSparepart(idSparepart string, out *List_pelanggan, n *int) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[CARI PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[CARI PELANGGAN] Error : ", errors)
-		panic(errors)
 	}
 	for rows.Next() {
 		rows.Scan(&idServisTemp[i], &idSparepartTemp[i])
@@ -391,7 +372,6 @@ func CariPelangganSparepart(idSparepart string, out *List_pelanggan, n *int) {
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[CARI PELANGGAN] Error : ", errors2)
-		panic(errors2)
 	}
 	defer rows2.Close()
 	for rows2.Next() {
@@ -410,14 +390,12 @@ func CariSparepart(nSparepart string, y *List_sparepart, n *int) { //NAMA SPAREP
 	db, err := Connect()
 	if err != nil {
 		log.Print("[CARI SPAREPART] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[CARI SPAREPART] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	for rows.Next() {
@@ -442,7 +420,6 @@ func CariServisNamaPelanggan(idPelanggan int, out *List_servis, n *int) { // MAS
 	db, err := Connect()
 	if err != nil {
 		log.Print("[CARI SERVIS] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
@@ -450,7 +427,6 @@ func CariServisNamaPelanggan(idPelanggan int, out *List_servis, n *int) { // MAS
 	rows2, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[CARI SERVIS] Error : ", errors)
-		panic(errors)
 	} else {
 		for rows2.Next() {
 			rows2.Scan(&arrTemp[i].Id_servis, arrTemp[i].Id_pelanggan, &Tanggal, &arrTemp[i].Total_Harga)
@@ -478,13 +454,11 @@ func CariServisTanggal(in Tanggal, out *List_servis, out2 *List_pelanggan, n *in
 	db, err := Connect()
 	if err != nil {
 		log.Print("[CARI SERVIS] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[CARI SERVIS] Error : ", errors)
-		panic(errors)
 	}
 	for rows.Next() {
 		rows.Scan(&out[i].Id_servis, &out[i].Id_pelanggan, &out[i].Total_Harga, &Tanggal, &out2[i].Id_pelanggan, &out2[i].Nama_pelanggan, &out2[i].Jenis_motor, &out2[i].Nomor_plat)
@@ -502,13 +476,11 @@ func EditPelanggan(idPelanggan int, x Pelanggan) { //MEMEASUKKAN ID PELANGGAN DA
 	db, err := Connect()
 	if err != nil {
 		log.Print("[EDIT PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[EDIT PELANGGAN] Error : ", errors)
-		panic(errors)
 	}
 	defer log.Print("[EDIT PELANGGAN] Success ")
 	defer rows.Close()
@@ -520,13 +492,11 @@ func EditSparepart(idSparepart string, x Sparepart) { //MEMEASUKKAN ID SPAPREPAR
 	db, err := Connect()
 	if err != nil {
 		log.Print("[EDIT SPAREPART] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[EDIT SPAREPART] Error : ", errors)
-		panic(errors)
 	}
 	defer log.Print("[EDIT SPAREPART] Success ")
 	defer rows.Close()
@@ -542,13 +512,11 @@ func HapusPelanggan(idPelanggan int) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[HAPUS PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input1)
 	if errors != nil {
 		log.Print("[HAPUS PELANGGAN] Error : ", errors)
-		panic(errors)
 	}
 	for rows.Next() {
 		rows.Scan(&idServis[i])
@@ -571,7 +539,6 @@ func HapusPelanggan(idPelanggan int) {
 		confirm, errorsConf := db.QueryContext(ctx, inputConf)
 		if errorsConf != nil {
 			log.Print("[HAPUS PELANGGAN] Error : ", errorsConf)
-			panic(errorsConf)
 		}
 		defer confirm.Close()
 		if confirm.Next() {
@@ -579,7 +546,6 @@ func HapusPelanggan(idPelanggan int) {
 			rows2, errors2 := db.QueryContext(ctx, inputs2)
 			if errors2 != nil {
 				log.Print("[HAPUS PELANGGAN] Error : ", errors2)
-				panic(errors2)
 			}
 			defer rows2.Close()
 		}
@@ -588,7 +554,6 @@ func HapusPelanggan(idPelanggan int) {
 		rows3, errors3 := db.QueryContext(ctx, input3)
 		if errors3 != nil {
 			log.Print("[HAPUS PELANGGAN] Error : ", errors3)
-			panic(errors3)
 		}
 		defer rows3.Close()
 	}
@@ -596,7 +561,6 @@ func HapusPelanggan(idPelanggan int) {
 	rows4, errors4 := db.QueryContext(ctx, input4)
 	if errors4 != nil {
 		log.Print("[HAPUS PELANGGAN] Error : ", errors4)
-		panic(errors4)
 	}
 	defer log.Print("[HAPUS PELANGGAN] Success ")
 	defer rows4.Close()
@@ -609,19 +573,16 @@ func HapusSparepart(idSparepart string) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[HAPUS SPAREPART] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[HAPUS SPAREPART] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[HAPUS SPAREPART] Error : ", errors2)
-		panic(errors2)
 	}
 	defer log.Print("[HAPUS SPAREPART] Success ")
 	defer rows2.Close()
@@ -633,13 +594,11 @@ func HapusPesananDariServis(idSparepart, idServis string) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[HAPUS PESANAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[HAPUS PESANAN] Error : ", errors)
-		panic(errors)
 	}
 	defer log.Print("[HAPUS PESANAN] Success ")
 	defer rows.Close()
@@ -652,19 +611,16 @@ func HapusServis(idServis string) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[HAPUS SERVIS] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[HAPUS SERVIS] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[HAPUS SERVIS] Error : ", errors2)
-		panic(errors2)
 	}
 	defer log.Print("[HAPUS SERVIS] Success ")
 	defer rows2.Close()
@@ -676,14 +632,12 @@ func TampilkanPelanggan(output *List_pelanggan, n *int) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[TAMPILKAN TABEL PELANGGAN] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[TAMPILKAN TABEL PELANGGAN] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	for rows.Next() {
@@ -701,14 +655,12 @@ func TampilkanSparepart(output *List_sparepart, n *int) {
 	db, err := Connect()
 	if err != nil {
 		log.Print("[TAMPILKAN TABEL SPAREPART] Error : ", err)
-		panic(err)
 	}
 	defer db.Close()
 	ctx := context.Background()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
 		log.Print("[TAMPILKAN TABEL SPAREPART] Error : ", errors)
-		panic(errors)
 	}
 	defer rows.Close()
 	for rows.Next() {
