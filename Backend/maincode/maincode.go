@@ -137,7 +137,7 @@ func KonversiId(id, x string) string {
 }
 
 func Connect() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:@Sadonyolai1@tcp(127.0.0.1:3306)/servicemotor")
+	db, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/servicemotor")
 	if err != nil {
 		return nil, err
 	}
