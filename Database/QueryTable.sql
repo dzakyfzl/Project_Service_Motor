@@ -34,8 +34,7 @@ CREATE TABLE Memesan(
     Foreign Key (Id_sparepart) REFERENCES Sparepart(Id_sparepart)
 );
 
-
-INSERT INTO pelanggan(`Id_pelanggan`,`Nama_pelanggan`,`Jenis_motor`,`Nomor_plat`) VALUES(
+INSERT INTO pelanggan(Id_pelanggan, `Nama_pelanggan`, `Jenis_motor`, `Nomor_plat`) VALUES
     (1,'Dzaky','Jupiter Z1','B6363EH'),
     (2,'Dzakkhwan','Aerox','D1233DE'),
     (3,'Tegar','Vario 125','B6100OI'),
@@ -44,7 +43,7 @@ INSERT INTO pelanggan(`Id_pelanggan`,`Nama_pelanggan`,`Jenis_motor`,`Nomor_plat`
     (6,'Rifaldi','XSR', 'D2993AE'),
     (7,'Adam','BeAT', 'R8842KH'),
     (8,'Depe','Aerox','B5531RAH'),
-    (9,'Jean','MT-25''D2045EZ'),
+    (9,'Jean','MT-25','D2045EZ'),
     (10,'Lucid','ZX10RR','P0450SA'),
     (11,'Avgene','H2','G0011DEN'),
     (12,'Blair','R1M','F1211RK'),
@@ -55,28 +54,26 @@ INSERT INTO pelanggan(`Id_pelanggan`,`Nama_pelanggan`,`Jenis_motor`,`Nomor_plat`
     (17,'Ikhsan','NMAX','B3923AK'),
     (18,'Sonata','TMAX','H3477DL'),
     (19,'Sarah','Sprinter S','H1922RI'),
-    (20,'Chase','R1300 GS','DK2952CA')
-);
+    (20,'Chase','R1300 GS','DK2952CA');
 
-INSERT INTO sparepart(`Id_sparepart`,`Nama_sparepart`,`Jenis_motor`) VALUES(
-    ('P001','Windshield','Aerox'),
-    ('P002','Windshield','Vario'),
-    ('P003','Windshield','H2'),
-    ('P004','Windshield','MT-25'),
-    ('P005','Set Piston','Aerox'),
-    ('P006','Set Piston','Vario 125'),
-    ('P007','Set Piston','Vario 160'),
-    ('P008','Set Piston','Jupiter Z1'),
-    ('P009','Set Piston','BeAT'),
-    ('P010','Blok Mesin','Sprinter S'),
-    ('P011','Blok Mesin','R1300 GS'),
-    ('P012','Blok Mesin','Z250'),
-    ('P013','Blok Mesin','XSR'),
-    ('P014','Kaliper','All 1000cc'),
-    ('P015','Kaliper','All 100cc'),
-    ('P016','Kaliper','All 250cc'),
-    ('P017','Kaliper','Xeon'),
-    ('P018','Kaliper','TMAX'),
-    ('P018','Kulit Jok','All Bebek'),
-    ('P018','Kulit Jok','All Matic')
-);
+INSERT INTO sparepart(`Id_sparepart`,`Nama_sparepart`,`Jenis_motor`,`Harga_sparepart`) VALUES
+    ('P001','Windshield','Aerox',40000),
+    ('P002','Windshield','Vario',40000),
+    ('P003','Windshield','H2',400000),
+    ('P004','Windshield','MT-25',90000),
+    ('P005','Set Piston','Aerox',150000),
+    ('P006','Set Piston','Vario 125',100000),
+    ('P007','Set Piston','Vario 160',145000),
+    ('P008','Set Piston','Jupiter Z1',100000),
+    ('P009','Set Piston','BeAT',100000),
+    ('P010','Blok Mesin','Sprinter S',500000),
+    ('P011','Blok Mesin','R1300 GS',10800000),
+    ('P012','Blok Mesin','Z250',2300000),
+    ('P013','Blok Mesin','XSR',430000),
+    ('P014','Kaliper','All 1000cc',1800000),
+    ('P015','Kaliper','All 100cc',300000),
+    ('P016','Kaliper','All 250cc',750000),
+    ('P017','Kaliper','Xeon',150000),
+    ('P018','Kaliper','TMAX',3250000),
+    ('P019','Kulit Jok','All Bebek',80000),
+    ('P020','Kulit Jok','All Matic',80000);
