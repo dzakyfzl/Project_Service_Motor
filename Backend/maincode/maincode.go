@@ -320,7 +320,7 @@ func CariPelanggan(nPelanggan string, y *List_pelanggan, n *int) { //MASUKKAN NA
 	}
 	*n = i
 	for i = 0; i < *n; i++ { //SEQUENTIAL SEARCH
-		if output[i].Nama_pelanggan == nPelanggan {
+		if strings.EqualFold(strings.ToLower(output[i].Nama_pelanggan), strings.ToLower(nPelanggan)) {
 			y[x] = output[i]
 			x++
 		}
@@ -404,7 +404,7 @@ func CariSparepart(nSparepart string, y *List_sparepart, n *int) { //NAMA SPAREP
 	}
 	*n = i
 	for i = 0; i < *n; i++ { //SEQUENTIAL SEARCH
-		if output[i].Nama_sparepart == nSparepart {
+		if strings.EqualFold(strings.ToLower(output[i].Nama_sparepart), strings.ToLower(nSparepart)) {
 			y[x] = output[i]
 			x++
 		}
