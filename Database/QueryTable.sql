@@ -36,7 +36,7 @@ CREATE TABLE Memesan(
 
 INSERT INTO pelanggan(Id_pelanggan, `Nama_pelanggan`, `Jenis_motor`, `Nomor_plat`) VALUES
     (1,'Dzaky','Jupiter Z1','B6363EH'),
-    (2,'Dzakkhwan','Aerox','D1233DE'),
+    (2,'Dzakhwan','Aerox','D1233DE'),
     (3,'Tegar','Vario 125','B6100OI'),
     (4,'Vito','Vario 125','D9855EK'),
     (5,'Agung','Vario 160','DK2288AP'),
