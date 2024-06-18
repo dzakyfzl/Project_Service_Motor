@@ -41,7 +41,7 @@ function buatTabel(data){
                           </td>
                           <td>
                             <button id="tombol-edit" onclick="" type="button" class="btn btn-primary btn-sm">Edit</button>
-                            <button id="tombol-hapus" onclick="hapussparepart(${data[i].Id_sparepart})" type="button" class="btn btn-danger btn-sm">Hapus</button>
+                            <button id="tombol-hapus" onclick="hapussparepart('${data[i].Id_sparepart}')" type="button" class="btn btn-danger btn-sm">Hapus</button>
                           </td>
                       </tr>`
   row += `</tbody>`
@@ -79,4 +79,25 @@ function hapussparepart(data){
     mode: "cors"
   }
   fetch(url + "/hapus/sparepart", request)
+};
+
+
+//<======================TAMBAH SPAREPART=======================>
+
+function tambahsparepart(){
+    var nama = document.getElementById('nama-sparepart') .value
+    var motor = document.getElementById('jenis-motor').value
+    var harga = document.getElementById('harga').value
+    const send = JSON.stringify({
+        "Nama_sparepart": nama,
+        "Jenis_motor": motor,
+        "Harga_sparepart":harga 
+      })
+      const request ={
+        method: "POST",
+        body: send,
+        redirect: "follow",
+        mode: "cors"
+      }
+      fetch(url + "/tambah/sparepart", request)
 }

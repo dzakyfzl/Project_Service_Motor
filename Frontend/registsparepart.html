@@ -11,6 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="index/style.css" />
+    <link rel="stylesheet" href="index/style-sp.css" />
     <!-- htmx script -->
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 
@@ -22,7 +23,13 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body
+    style="
+      background-image: url(index/chad-kirchoff-xe-e69j6-Ds-unsplash.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+    "
+  >
     <!-- navbar -->
     <header>
       <a
@@ -39,22 +46,33 @@
         </div>
       </nav>
     </header>
-    <!-- navbarend -->
 
-    <!-- getstarted button -->
-    <div class="content">
-      <div
-        class="d-flex justify-content-center align-items-center"
-        style="height: 100vh"
-      >
-        <a
-          href="registpelanggan.html"
-          type="button"
-          class="btn btn-success btn-lg"
-        >
-          Mulai Pendaftaran
-        </a>
+    <div class="container">
+      <h1>Input Sparepart</h1>
+      <div class="container-form">
+        <form action="#" class="form">
+          <div class="input-box">
+            <label>Nama Sparepart</label>
+            <input type="text" id="nama-sparepart" placeholder="Ex. Busi" required />
+          </div>
+          <div class="input-box">
+            <label>Jenis Motor</label>
+            <input
+              type="text"
+              id="jenis-motor"
+              placeholder="Ex. Honda Vario 125 CBS "
+              required
+            />
+          </div>
+          <div class="input-box">
+            <span class="details">Harga</span>
+            <input type="text" placeholder="Ex. 100000" id="harga" required />
+          </div>
+          <button onclick="tambahsparepart()">Submit</button>
+        </form>
       </div>
     </div>
+    <script src="daftarsparepart/sparepart.js"></script>
+    <!-- navbarend -->
   </body>
 </html>

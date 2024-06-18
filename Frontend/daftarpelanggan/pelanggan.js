@@ -169,6 +169,12 @@ function kirimidsparepart(data){
 
 
 function hasilTabelPelanggan(data){
+  const atas = document.getElementById('kotak-pencarian')
+  var tambahan = `
+              <div id="penambahan">
+              <a href="registpelanggan.html" id="tambah">+ Tambah</a>
+              </div>`
+  
   var row = `<thead>
                 <tr>
                     <th>Id</th>
@@ -201,5 +207,27 @@ function hasilTabelPelanggan(data){
   row += `</tbody>`
   }
   tablesparepart.innerHTML = row
+  atas.innerHTML = tambahan
+  body.replace(atas)
   body.replace(tablesparepart)
 };
+
+//<================================PENDAFTARAN PELANGGAN================================>
+
+function tambahpelanggan(){
+  var nama = document.getElementById('nama-pelanggan') .value
+  var motor = document.getElementById('jenis-motor').value
+  var plat = document.getElementById('plat-nomor').value
+  const send = JSON.stringify({
+      "Nama_pelanggan": nama,
+      "Jenis_motor": motor,
+      "Nomor_plat": plat 
+    })
+    const request ={
+      method: "POST",
+      body: send,
+      redirect: "follow",
+      mode: "cors"
+    }
+    fetch(url + "/tambah/pelanggan", request)
+}

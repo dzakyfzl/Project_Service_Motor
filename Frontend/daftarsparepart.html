@@ -10,28 +10,36 @@
       rel="stylesheet"
     />
     <head>
-        <title>Frontend Tubes</title>
+        <title>Service Motor Paci</title>
+        <link rel="stylesheet" href="index/style.css">
         <link rel="stylesheet" href="daftarsparepart/sparepartstyle.css">
     </head>
     <body>
-        <nav class="navbar">
+        <!-- Navbar -->
+        <header>
+          <a
+          class="navbar-brand"
+          style="font-family: Playfair Display"
+          href="index.html"
+          >Pacimotors</a>
+    
+          <nav class="navbar">
             <div class="container-fluid">
-              <a
-              class="navbar-brand"
-              style="font-family: Playfair Display"
-              href="index.html"
-              >Paci<span class="spn">Motors</span></a
-              >
+              <a href="daftarpelanggan.html">List Pelanggan</a>
+              <a href="daftarservice.html">List Service</a>
+              <a href="daftarsparepart.html">List Sparepart</a>
             </div>
-            </nav>
           </nav>
+        </header>
 
 
         <div class="kotak-pencarian">
-            <! -- Masih belum -->
-            <a href="caripelanggan.html" id="back-button">Back</a>
+            <a href="index.html" id="back-button">Back</a>
             <input type="text" id="input" placeholder="Nama Sparepart">
             <button id="search" onclick="sparepartcaridarinama()">Search</button>
+            <div id="penambahan">
+              <a href="registsparepart.html" id="tambah">+ Tambah</a>
+            </div>
         </div>
         <div>
             <table class="table table-striped" id="tables-sparepart">

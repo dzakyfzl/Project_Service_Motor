@@ -13,13 +13,6 @@
     padding: 10px;
 }
 
-#pemisah{
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: 'calibri';
-    font-size: 18px;
-}
-
 #tombol-cari-sparepart{
     padding: 3.5px;
     font-size: 17px;
@@ -29,46 +22,4 @@
     color: #ffffff;
     border-color: #ffffff;
     text-decoration: none;
-}
-
-#back-button{
-    text-decoration: none;
-    color: #ffffff;
-    background: #c02e2e;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-family: 'calibri';
-    border-radius: 10px;
-    border-color: #ffffff;
-    margin-right: 10px;
-}
-
-.navbar {
-    background-color: #242222;
-}
-
-.spn {
-    font-size: 2rem;
-    font-style: italic;
-    font-weight: bold;
-    color: rgb(4, 75, 10);
-    cursor: pointer;
-}
-  
-.spn:hover {
-    color: rgb(4, 75, 10);
-}
-
-.navbar-brand {
-  font-size: 2rem;
-  font-style: italic;
-  font-weight: bold;
-  color: whitesmoke;
-  cursor: pointer;
-}
-  
-.navbar-brand:hover {
-  color: whitesmoke;
 }

@@ -1,0 +1,88 @@
+#input{
+    border-radius: 10px;
+}
+
+#search{
+    border-radius: 10px;
+    background: #10a344;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+#tambah-pesanan{
+    float: right;
+    border-radius: 10px;
+    background: rgb(0, 102, 255);
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+#kotak-pencarian{
+    padding: 10px;
+}
+
+#tombol-cari-sparepart{
+    padding: 3.5px;
+    font-size: 17px;
+    font-family: 'calibri';
+    border-radius: 8px;
+    background: #10a344;
+    color: #ffffff;
+    border-color: #ffffff;
+    text-decoration: none;
+}
+
+#tombol-hapus{
+    margin-left: 10px;
+}
+
+#tanggal{
+    width: 80px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+#bulan{
+    height: 28px;
+    width: 80px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+#tahun{
+    width: 80px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+#kotak-nama-pelanggan{
+    float: right;
+}
+
+#input-nama-pelanggan{
+    height: 28px;
+    border-color: black;
+    border-radius: 10px;
+}
+
+#tombol-cari-pelanggan{
+    padding: 5px;
+    font-size: 17px;
+    font-family: 'calibri';
+    border-radius: 8px;
+    background: #10a344;
+    color: #ffffff;
+    border-color: #ffffff;
+    text-decoration: none;
+}
+
+#tombol-tambah{
+    padding: 5px;
+    font-size: 17px;
+    font-family: 'calibri';
+    border-radius: 8px;
+    background: rgb(0, 102, 255);
+    color: #ffffff;
+    border-color: #ffffff;
+    text-decoration: none;
+}

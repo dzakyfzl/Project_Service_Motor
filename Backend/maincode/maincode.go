@@ -87,7 +87,9 @@ func KonversiSQLKeTanggal(x string) Tanggal {
 func KonversiTanggalSQL(x Tanggal) string {
 	var hasil string
 	x.Bulan = strings.ToLower(x.Bulan)
-	hasil = strconv.Itoa(x.Tahun)
+	if x.Tahun >= 0 {
+		hasil = strconv.Itoa(x.Tahun)
+	}
 	if x.Bulan == "januari" {
 		hasil = hasil + "-01-"
 	} else if x.Bulan == "februari" {
@@ -113,7 +115,10 @@ func KonversiTanggalSQL(x Tanggal) string {
 	} else if x.Bulan == "desember" {
 		hasil = hasil + "-12-"
 	}
-	hasil = hasil + strconv.Itoa(x.Tanggal)
+	if x.Tanggal > 0 {
+		hasil = hasil + strconv.Itoa(x.Tanggal)
+	}
+	log.Print("[KONVERSI TANGGAL - SQL] Hasil : ", hasil)
 	return hasil
 }
 
@@ -208,7 +213,7 @@ func DaftarServis(idPelanggan int, date Tanggal) { //MASUKKAN ID
 	} else {
 		rows1.Scan(&id)
 	}
-	input2 := "INSERT INTO servis(Id_servis, Id_pelanggan, Tanggal_kunjungan) VALUES ('" + KonversiId(id, "S") + "','" + strconv.Itoa(idPelanggan) + "','" + TanggalTerkonversi + "');"
+	input2 := "INSERT INTO servis(Id_servis, Id_pelanggan, Total_harga, Tanggal_kunjungan) VALUES ('" + KonversiId(id, "S") + "','" + strconv.Itoa(idPelanggan) + "','" + "0" + "','" + TanggalTerkonversi + "');"
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[DAFTAR SERVIS] Error : ", errors2)
@@ -257,7 +262,7 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 	defer db.Close()
 	rows, errors := db.QueryContext(ctx, input)
 	if errors != nil {
-		log.Print("[HITUNG TOTAL SERVIS] Error : ", errors)
+		log.Print("[HITUNG TOTAL SERVIS] Error1 : ", errors)
 	}
 	for rows.Next() {
 		rows.Scan(&idSparepartTemp[i], &idServisTemp[i])
@@ -270,19 +275,19 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 			i2++
 		}
 	}
-	i = i2 + 1
+	i = i2
 	defer rows.Close()
 	for x := 0; x < i; x++ {
 		if x == i {
-			input2 = input2 + "'" + idSparepart[x] + "');"
+			input2 = input2 + "'" + idSparepart[x]
 		} else {
 			input2 = input2 + "'" + idSparepart[x] + "',"
 		}
 	}
-	input2 = "SELECT SUM(Harga_sparepart) FROM sparepart WHERE Id_sparepart IN(" + input2
+	input2 = "SELECT SUM(Harga_sparepart) AS total FROM sparepart WHERE Id_sparepart IN(" + input2 + ") GROUP BY total;"
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
-		log.Print("[HITUNG TOTAL SERVIS] Error : ", errors2)
+		log.Print("[HITUNG TOTAL SERVIS] Error2 : ", errors2)
 	}
 	for rows2.Next() {
 		rows2.Scan(&t.Total_Harga)
@@ -467,7 +472,7 @@ func CariServisTanggal(in Tanggal, out *List_servis, out2 *List_pelanggan, n *in
 	}
 	defer rows.Close()
 	defer log.Print("[CARI SERVIS] Success ")
-	*n = i + 1
+	*n = i
 }
 
 func EditPelanggan(idPelanggan int, x Pelanggan) { //MEMEASUKKAN ID PELANGGAN DAN STRUKTUR PELANGGAN
@@ -678,4 +683,50 @@ func TampilkanSparepart(output *List_sparepart, n *int) {
 		}
 	}
 	defer log.Print("[TAMPILKAN TABEL SPAREPART] Success ")
+}
+
+func TampilkanServis(out *List_servis, out2 *List_pelanggan, n *int) {
+	var i int = 0
+	var Tanggal string
+	input := "SELECT servis.Id_servis, servis.Id_pelanggan, servis.Total_harga, servis.Tanggal_kunjungan, pelanggan.Id_pelanggan, pelanggan.Nama_pelanggan, pelanggan.Jenis_motor, pelanggan.Nomor_plat FROM servis INNER JOIN pelanggan ON pelanggan.Id_pelanggan = servis.Id_pelanggan;"
+	ctx := context.Background()
+	db, err := Connect()
+	if err != nil {
+		log.Print("[TAMPILKAN TABEL SERVIS] Error : ", err)
+	}
+	defer db.Close()
+	rows, errors := db.QueryContext(ctx, input)
+	if errors != nil {
+		log.Print("[TAMPILKAN TABEL SERVIS] Error : ", errors)
+	}
+	for rows.Next() {
+		rows.Scan(&out[i].Id_servis, &out[i].Id_pelanggan, &out[i].Total_Harga, &Tanggal, &out2[i].Id_pelanggan, &out2[i].Nama_pelanggan, &out2[i].Jenis_motor, &out2[i].Nomor_plat)
+		out[i].Tanggal_kunjungan = KonversiSQLKeTanggal(Tanggal)
+		i++
+	}
+	defer rows.Close()
+	defer log.Print("[TAMPILKAN TABEL SERVIS] Success ")
+	*n = i
+}
+
+func TampilkanPesanan(idServis string, out *List_sparepart, n *int) {
+	var i int = 0
+	input := "SELECT sparepart.Id_sparepart, sparepart.Nama_sparepart, sparepart.Jenis_motor, sparepart.Harga_sparepart FROM memesan INNER JOIN sparepart ON sparepart.Id_sparepart = memesan.Id_sparepart WHERE Id_servis=" + "'" + idServis + "';"
+	ctx := context.Background()
+	db, err := Connect()
+	if err != nil {
+		log.Print("[TAMPILKAN TABEL PESANAN] Error : ", err)
+	}
+	defer db.Close()
+	rows, errors := db.QueryContext(ctx, input)
+	if errors != nil {
+		log.Print("[TAMPILKAN TABEL PESANAN] Error : ", errors)
+	}
+	for rows.Next() {
+		rows.Scan(&out[i].Id_sparepart, &out[i].Nama_sparepart, &out[i].Jenis_motor, &out[i].Harga_sparepart)
+		i++
+	}
+	defer rows.Close()
+	defer log.Print("[TAMPILKAN TABEL PESANAN] Success ")
+	*n = i
 }

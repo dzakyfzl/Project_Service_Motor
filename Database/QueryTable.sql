@@ -23,7 +23,7 @@ CREATE TABLE Servis(
     Id_servis VARCHAR(4) NOT NULL PRIMARY KEY,
     Id_pelanggan INT NOT NULL,
     Total_Harga INT,
-    Tanggal_kunjungan DATE,
+    Tanggal_kunjungan VARCHAR(10),
     Foreign Key (Id_pelanggan) REFERENCES Pelanggan(Id_pelanggan)
 )
 

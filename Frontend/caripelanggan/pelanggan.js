@@ -185,3 +185,7 @@ function kirimidsparepart(data){
     tablesparepart.innerHTML = row
     body.replace(tablesparepart)
   };
+
+
+//<================================KONFIGURASI SERVIS=========================================>
+

@@ -43,8 +43,10 @@ func RunServer() {
 	comm.HandleFunc("/hapus/sparepart", hSparepart).Methods("POST")
 	comm.HandleFunc("/hapus/servis", hServis).Methods("POST")
 	comm.HandleFunc("/hapus/pesanan", hPesananDariServis).Methods("POST")
+	comm.HandleFunc("/pesanan", TampilkanPesanan).Methods("POST")
 	comm.HandleFunc("/pelanggan", TampilkanPelanggan).Methods("GET")
 	comm.HandleFunc("/sparepart", TampilkanSparepart).Methods("GET")
+	comm.HandleFunc("/servis", TampilkanServis).Methods("GET")
 
 	err := http.ListenAndServe(":8080", comm)
 	if err != nil {
@@ -215,4 +217,35 @@ func TampilkanSparepart(x http.ResponseWriter, r *http.Request) {
 	log.Print("[TAMPILKAN TABEL SPAREPART]")
 	maincode.TampilkanSparepart(&ArrSparepart, &n)
 	json.NewEncoder(x).Encode(ArrSparepart[0:n])
+}
+
+func TampilkanServis(x http.ResponseWriter, r *http.Request) {
+	var n int
+	var ArrServis maincode.List_servis
+	var ArrPelanggan maincode.List_pelanggan
+	var ArrGab List_servisdanpelanggan
+	x.Header().Set("Access-Control-Allow-Origin", "*")
+	log.Print("[TAMPILKAN TABEL SERVIS]")
+	maincode.TampilkanServis(&ArrServis, &ArrPelanggan, &n)
+	for i := 0; i < n; i++ {
+		ArrGab[i].Id_pelanggan = ArrPelanggan[i].Id_pelanggan
+		ArrGab[i].Nama_pelanggan = ArrPelanggan[i].Nama_pelanggan
+		ArrGab[i].Jenis_motor = ArrPelanggan[i].Jenis_motor
+		ArrGab[i].Nomor_plat = ArrPelanggan[i].Nomor_plat
+		ArrGab[i].Total_Harga = ArrServis[i].Total_Harga
+		ArrGab[i].Tanggal_kunjungan = ArrServis[i].Tanggal_kunjungan
+		ArrGab[i].Id_servis = ArrServis[i].Id_servis
+	}
+	json.NewEncoder(x).Encode(ArrGab[0:n])
+}
+
+func TampilkanPesanan(x http.ResponseWriter, r *http.Request) {
+	var Servis maincode.Servis
+	var ArrPesanan maincode.List_sparepart
+	var n int
+	x.Header().Set("Access-Control-Allow-Origin", "*")
+	json.NewDecoder(r.Body).Decode(&Servis)
+	log.Print("[TAMPILKAN PESANAN] ID Servis : ", Servis.Id_servis)
+	maincode.TampilkanPesanan(Servis.Id_servis, &ArrPesanan, &n)
+	json.NewEncoder(x).Encode(ArrPesanan[0:n])
 }
