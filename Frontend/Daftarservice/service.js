@@ -316,3 +316,43 @@ function tambahservis(){
       }
       fetch(url + "/tambah/servis", request)
 }
+
+
+//<=========================CARI NAMA PELANGGAN==============================>
+
+function eksekusi(data){
+  var kosong
+  if (data[0].Id_pelanggan == 0){
+    buatTabelServis(kosongS)
+  }
+  const send = JSON.stringify({
+    "Id_pelanggan": data[0].Id_pelanggan
+  })
+  const request ={
+    method: "POST",
+    body: send,
+    redirect: "follow",
+    mode: "cors"
+  }
+  fetch(url + "/cari/servis/nama-pelanggan", request)
+  .then(response => response.json())
+  .then(result => buatTabelServis(result))
+  .catch(error => console.error(error));
+}
+
+function pelanggancaridarinama(){
+  var input = document.getElementById('nama-pelanggan').value
+  const send = JSON.stringify({
+    "Nama_pelanggan": input
+  })
+  const request ={
+    method: "POST",
+    body: send,
+    redirect: "follow",
+    mode: "cors"
+  }
+  fetch(url + "/cari/pelanggan/nama", request)
+  .then(response => response.json())
+  .then(result => eksekusi(result))
+  .catch(error => console.error(error));
+};

@@ -436,8 +436,9 @@ func CariServisNamaPelanggan(idPelanggan int, out *List_servis, n *int) { // MAS
 		log.Print("[CARI SERVIS] Error : ", errors)
 	} else {
 		for rows2.Next() {
-			rows2.Scan(&arrTemp[i].Id_servis, arrTemp[i].Id_pelanggan, &Tanggal, &arrTemp[i].Total_Harga)
+			rows2.Scan(&arrTemp[i].Id_servis, &arrTemp[i].Id_pelanggan, &Tanggal, &arrTemp[i].Total_Harga)
 			arrTemp[i].Tanggal_kunjungan = KonversiSQLKeTanggal(Tanggal)
+			log.Print("[CARI SERVIS] Data :", arrTemp[i])
 			i++
 		}
 		*n = i
@@ -449,7 +450,7 @@ func CariServisNamaPelanggan(idPelanggan int, out *List_servis, n *int) { // MAS
 			}
 		}
 		defer log.Print("[CARI SERVIS] Success ")
-		*n = x + 1
+		*n = x
 	}
 }
 

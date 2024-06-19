@@ -126,7 +126,7 @@ func cServisNamaPelanggan(x http.ResponseWriter, r *http.Request) { //INPUT ID P
 	var ArrServis maincode.List_servis
 	x.Header().Set("Access-Control-Allow-Origin", "*")
 	json.NewDecoder(r.Body).Decode(&pelanggan)
-	log.Print("[CARI SERVIS] Nama Pelanggan : ", pelanggan.Id_pelanggan)
+	log.Print("[CARI SERVIS] Id Pelanggan : ", pelanggan.Id_pelanggan)
 	maincode.CariServisNamaPelanggan(pelanggan.Id_pelanggan, &ArrServis, &n)
 	json.NewEncoder(x).Encode(ArrServis[0:n])
 }
