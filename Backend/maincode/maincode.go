@@ -237,6 +237,7 @@ func PesanSparepart(idServis, idSparepart string) {
 	}
 	defer rows.Close()
 	input2 := "UPDATE sparepart SET Jumlah_terjual = Jumlah_terjual+1 WHERE Id_sparepart = '" + idSparepart + "';"
+	log.Print("[PESAN PESANAN] Sql : ", input2)
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[PESAN PESANAN] Error : ", errors2)
@@ -278,13 +279,14 @@ func HitungTotalHargaServis(idServis string, BiayaServis int) { //CARI BERDASARK
 	i = i2
 	defer rows.Close()
 	for x := 0; x < i; x++ {
-		if x == i {
-			input2 = input2 + "'" + idSparepart[x]
+		if x == i-1 {
+			input2 = input2 + "'" + idSparepart[x] + "'"
 		} else {
 			input2 = input2 + "'" + idSparepart[x] + "',"
 		}
 	}
-	input2 = "SELECT SUM(Harga_sparepart) AS total FROM sparepart WHERE Id_sparepart IN(" + input2 + ") GROUP BY total;"
+	input2 = "SELECT SUM(Harga_sparepart) AS total FROM sparepart WHERE Id_sparepart IN(" + input2 + ");"
+	log.Print("[HITUNG TOTAL SERVIS] Id Sparepart : ", input2)
 	rows2, errors2 := db.QueryContext(ctx, input2)
 	if errors2 != nil {
 		log.Print("[HITUNG TOTAL SERVIS] Error2 : ", errors2)
@@ -656,7 +658,8 @@ func TampilkanPelanggan(output *List_pelanggan, n *int) {
 func TampilkanSparepart(output *List_sparepart, n *int) {
 	var i int = 0
 	var temp int
-	input := "SELECT * FROM sparepart;"
+	var tempbox Sparepart
+	input := "SELECT Id_sparepart, Nama_sparepart, Harga_sparepart, Jumlah_terjual, Jenis_motor FROM sparepart;"
 	db, err := Connect()
 	if err != nil {
 		log.Print("[TAMPILKAN TABEL SPAREPART] Error : ", err)
@@ -675,10 +678,12 @@ func TampilkanSparepart(output *List_sparepart, n *int) {
 	*n = i
 	for y := 0; y < *n; y++ { //SELECTION SORT
 		temp = output[y].Jumlah_terjual
+		tempbox = output[y]
 		for x := y + 1; x < *n; x++ {
 			if temp < output[x].Jumlah_terjual {
-				output[y].Jumlah_terjual = output[x].Jumlah_terjual
-				output[x].Jumlah_terjual = temp
+				tempbox = output[y]
+				output[y] = output[x]
+				output[x] = tempbox
 			}
 		}
 	}

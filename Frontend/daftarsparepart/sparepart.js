@@ -26,6 +26,7 @@ function buatTabel(data){
                 </thead>`
   row += `<tbody>`
   for (var i = 0; i < data.length;i++){
+    console.log(data[i])
    row +=             `<tr>
                           <td>
                             ${data[i].Id_sparepart}
@@ -40,7 +41,6 @@ function buatTabel(data){
                             ${data[i].Jumlah_terjual}
                           </td>
                           <td>
-                            <button id="tombol-edit" onclick="" type="button" class="btn btn-primary btn-sm">Edit</button>
                             <button id="tombol-hapus" onclick="hapussparepart('${data[i].Id_sparepart}')" type="button" class="btn btn-danger btn-sm">Hapus</button>
                           </td>
                       </tr>`

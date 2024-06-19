@@ -42,7 +42,6 @@ function buatTabelPelanggan(data){
                             ${data[i].Jenis_motor}
                           </td>
                           <td>
-                            <button id="tombol-edit" onclick="" type="button" class="btn btn-primary btn-sm">Edit</button>
                             <button id="tombol-hapus" onclick="hapuspelanggan(${data[i].Id_pelanggan})" type="button" class="btn btn-danger btn-sm">Hapus</button>
                           </td>
                       </tr>`
@@ -173,6 +172,7 @@ function hasilTabelPelanggan(data){
   var tambahan = `
               <div id="penambahan">
               <a href="registpelanggan.html" id="tambah">+ Tambah</a>
+              <a href="editpelanggan.html" id="tambah" style="margin-right: 10px; padding-left: 5px; padding-right: 5px;">Edit</a>
               </div>`
   
   var row = `<thead>
@@ -200,7 +200,6 @@ function hasilTabelPelanggan(data){
                             ${data[i].Jenis_motor}
                           </td>
                           <td>
-                            <button id="tombol-edit" onclick="" type="button" class="btn btn-primary btn-sm">Edit</button>
                             <button id="tombol-hapus" onclick="hapuspelanggan(${data[i].Id_pelanggan})" type="button" class="btn btn-danger btn-sm">Hapus</button>
                           </td>
                       </tr>`
