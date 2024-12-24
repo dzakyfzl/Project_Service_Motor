@@ -1,6 +1,4 @@
--- Active: 1716460248431@@127.0.0.1@3306@servicemotor
-
-CREATE servismotor;
+CREATE DATABASE servismotor;
 
 USE servismotor;
 

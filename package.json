@@ -1,0 +1,15 @@
+{
+  "name": "tugas-besar-algoritma-pemrograman",
+  "version": "1.0.0",
+  "main": "router.js",
+  "scripts": {
+    "build": "node router.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
